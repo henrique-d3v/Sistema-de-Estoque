@@ -98,13 +98,13 @@ void cadastrar_produto(){ //função cadastrar produto| procura produtos e quant
 }
 
 void exibirInfoProduto(Produto produtos[], int i){
-    printf("PRODUTO %i",i+1 );
-    printf("%s",produtos[i].nome);
-    printf("Codigo: %s",produtos[i].codigo);
-    printf("Categoria: %s",produtos[i].categoria);
-    printf("Tamanho: %s",produtos[i].tamanho);
-    printf("Quantidade em estoque: %d unidades", produtos[i].qtd_estoque);
-    printf("Preco: %.2f\n", produtos[i].preco);
+    printf("\n--- PRODUTO %d ---\n", i + 1);
+    printf("Nome: %s\n", produtos[i].nome);
+    printf("Codigo: %s\n", produtos[i].codigo);
+    printf("Categoria: %s\n", produtos[i].categoria);
+    printf("Tamanho: %s\n", produtos[i].tamanho);
+    printf("Quantidade em estoque: %d unidades\n", produtos[i].qtd_estoque);
+    printf("Preco: R$ %.2f\n", produtos[i].preco);
 } // funcao que sera usada para exibir as informacoes dos produtos tanto na funcao exibir_estoque quanto na buscar_produto
 
 //pedro
@@ -163,6 +163,7 @@ void exibir_estoque(Produto produtos[],int quantidade){
     int choice; // o usuario escolhe se quer exibir o estoque total ou por categoria
     printf("1 - Exibir estoque total\n "); // menu de escolha
     printf("2 - Exibir por categoria\n ");
+    printf("3 - Baixa Quantidade\n ");
     printf("Digite uma opcao: ");
     scanf("%i",&choice);
 
@@ -172,10 +173,63 @@ void exibir_estoque(Produto produtos[],int quantidade){
         for(int i = 0; i<quantidade; i++){
             exibirInfoProduto(produtos, i); // chamada da funcao que exibe as informacoes do produto
         }
+        
+//Kauê
+
     }else if(choice==2){
-        //Kauê vai implementar por categoria
+        char categoria_busca[MAX];
+        
+            printf("Digite a categoria que deseja buscar: ");
+                scanf(" %99[^\n]", categoria_busca);
+                
+        int encontrado = 0; //Usado para controlar se pelo menos um produto foi localizado
+            
+        //Percorre todo o vetor de produtos cadastrados
+            for(int i = 0; i < quantidade; i++){
+                
+        // Compara a categoria informada com a categoria do produto
+            if(strcmp(produtos[i].categoria, categoria_busca) == 0){
+                exibirInfoProduto(produtos, i);
+                encontrado = 1; // Marca que encontrou ao menos um item
+            }
+        }
+        
+        // Se a  variavel "encontrado" continuar em 0, avisa ao usuário que nada foi encontrado
+        if(encontrado == 0){
+            printf("Nenhum produto encontrado nessa categoria.\n");
+        }
+        
+    }else if(choice==3){
+        int limite;
+        
+    //Laço para não ser possivel a entrada de números negativos pelo usuario!!
+        do {  
+            printf("Digite a quantidade limite: ");
+                scanf("%d", &limite);
+            
+            if (limite < 0) {
+                printf("A quantidade deve ser maior ou igual a 0!\n");
+            }
+        } while (limite < 0);
+            
+            
+        int encontrado = 0;
+        
+            for(int i = 0; i < quantidade; i++){
+        // Verifica se a quantidade em estoque do produto é menor ou igual ao limite definido
+                if(produtos[i].qtd_estoque <= limite){
+                    exibirInfoProduto(produtos, i);
+                    encontrado = 1; // Registra que encontrou item na condição
+            }
+        }
+        
+    //Menssagem aparecerá caso nenhum produto tenha o estoque igual ou menor ao limite digitado!!
+        if(!encontrado){
+            printf("\nNenhum produto com quantidade menor ou igual a %d em estoque.\n", limite);
+        }
+    
     }else{
-        printf("Opcao invalida");
+        printf("Opcao invalida \n");
     }
 }
 
@@ -194,9 +248,8 @@ int menu_produtos(){
     return escolha;
 } // funcao que exibe o menu do sistema de estoque e retorna o inteiro digitado (escolha) pelo usuario
 
+
 ////                    seção produtos                           ////
-
-
 
 int main(){
 int opcao;
@@ -206,25 +259,26 @@ int opcao;
             case 1:
                 cadastrar_produto();
                 break;
-            case 2:
+            case 2: {
             //pedro|case
             int opc_busca;//var para guardar a opcao que o usuario digitou
             printf("=====Buscar produtos=====");
             printf("1 - Buscar por codigo.");
             printf("2 - Buscar por nome.");
-            print("Digite uma opcao: ");
-            scanf("d",&opc_busca);
+            printf("Digite uma opcao: ");
+            scanf("%d",&opc_busca);
 
             if(opc_busca ==1){ //se o usuario escolher 1, chama a função buscar por codigo
-                busca_codigo(produtos,quantidade);
+                buscar_codigo(produtos,quantidade);
             }else if(opc_busca ==2){ // se o usuario escolher 2, chama a funcao buscar por nome
-                busca_nome(produtos,quantidade);
+                buscar_nome(produtos,quantidade);
             }else{// se ele nao digitar nada, diz que nenhuma opcao foi encontrada
                 printf("Opcao nao encontrada.");
             }
             break;//pedro|case2
-               
+            }   
             case 3:
+                exibir_estoque(produtos, quantidade);
                 break;
             case 4:
                 break;

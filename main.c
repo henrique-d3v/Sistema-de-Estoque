@@ -174,7 +174,7 @@ void buscar_tamanho(Produto produtos[], int quantidade) {
     scanf(" %[^\n]", tamanho_busca);
 
     // Chama o núcleo passando '3' para buscar no campo .tamanho
-    int total = executarBuscaString(produtos, quantidade, tamanho_busca, 3);
+    int total = executarBusca(produtos, quantidade, tamanho_busca, 3);
 
     if (total == 0) {
         printf("Produto com tamanho '%s' nao encontrado.\n", tamanho_busca);

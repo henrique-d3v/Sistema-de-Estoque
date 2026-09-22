@@ -166,7 +166,65 @@ void buscar_nome(Produto produtos[], int quantidade) {
 }
 //pedro busca nome
 
-//henrique tem que atualizar a função dele
+//henrique - implementacao da funcao buscar tamanho
+
+void buscar_tamanho(Produto produtos[], int quantidade) {
+    char tamanho_busca[MAX];
+    printf("Digite o tamanho do produto que deseja buscar: ");
+    scanf(" %[^\n]", tamanho_busca);
+
+    // Chama o núcleo passando '3' para buscar no campo .tamanho
+    int total = executarBuscaString(produtos, quantidade, tamanho_busca, 3);
+
+    if (total == 0) {
+        printf("Produto com tamanho '%s' nao encontrado.\n", tamanho_busca);
+    }
+}
+
+// menu de busca
+int menuBusca() {
+    int opc_busca;
+    printf("\n===== Buscar produtos =====\n");
+    printf("1 - Buscar por codigo\n");
+    printf("2 - Buscar por nome\n");
+    printf("3 - Buscar por tamanho\n"); 
+    printf("Digite uma opcao: ");
+    scanf("%d", &opc_busca);
+
+    if (opc_busca < 1 || opc_busca > 3) {
+        printf("Opcao invalida!\n");
+        return -1; 
+    }
+
+    return opc_busca; // retorna a opcao de busca digitada pelo usuario
+}
+
+// funcao buscar_produto que controla o fluxo da opcao digitada chamando uma funcao especifica
+
+void buscar_Produto(int o, Produto produtos[], int quantidade) {
+    if (quantidade == 0) {
+        printf("Nenhum produto cadastrado.\n");
+        return;
+    }
+
+    switch (o) {
+        case 1:
+            buscar_codigo(produtos, quantidade);
+            break;
+        case 2:
+            buscar_nome(produtos, quantidade);
+            break;
+        case 3:
+            buscar_tamanho(produtos, quantidade);
+            break;
+        default:
+            printf("Opcao invalida!\n");
+            break;
+    }
+}
+
+// funcao que exibe o estoque total ou por categoria
+
 void exibir_estoque(Produto produtos[],int quantidade){
     if(quantidade==0){
         printf("Nenhum produto cadastrado");
@@ -291,6 +349,7 @@ int opcao;
             case 5:
                 break;
             case 0:
+                printf("Encerrando sistema...\n");
                 break;
             default:
                 printf("Opcao invalida\n");

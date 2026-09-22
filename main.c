@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#include <errno.h>
+#include <limits.h>
+
 
 #define MAX 100
 
@@ -94,6 +98,7 @@ void cadastrar_produto(){ //função cadastrar produto| procura produtos e quant
     limpar_buffer();
     printf("Digite o tamanho do produto: ");
     scanf("%s",produtos[i].tamanho);
+    printf("Produto cadastrado com sucesso!\n");
 
 }
 
@@ -305,6 +310,161 @@ void exibir_estoque(Produto produtos[],int quantidade){
         printf("Opcao invalida \n");
     }
 }
+//kaue fim
+
+// Raphael - entrada e venda de produtos ja cadastrados.
+int ler_linha_estoque(char linha[MAX]) {
+    if (fgets(linha, MAX, stdin) == NULL) {
+        return 0;
+    }
+
+    // Nao permite que uma entrada longa seja usada como um codigo truncado.
+    if (strchr(linha, '\n') == NULL) {
+        int proximo = getchar();
+        if (proximo != '\n' && proximo != EOF) {
+            limpar_buffer();
+            printf("Entrada muito longa. Operacao cancelada.\n");
+            return 0;
+        }
+    }
+
+    linha[strcspn(linha, "\r\n")] = '\0';
+    return 1;
+}
+
+int ler_inteiro_estoque(const char *mensagem, int *valor) {
+    char linha[MAX];
+    char *fim;
+    long numero;
+
+    printf("%s", mensagem);
+    if (!ler_linha_estoque(linha)) {
+        return 0;
+    }
+
+    errno = 0;
+    numero = strtol(linha, &fim, 10);
+    if (fim == linha) {
+        printf("Digite um numero inteiro valido. Operacao cancelada.\n");
+        return 0;
+    }
+
+    while (isspace((unsigned char)*fim)) {
+        fim++;
+    }
+
+    if (*fim != '\0' || errno == ERANGE || numero < INT_MIN || numero > INT_MAX) {
+        printf("Digite um numero inteiro valido. Operacao cancelada.\n");
+        return 0;
+    }
+
+    *valor = (int)numero;
+    return 1;
+}
+
+int selecionar_produto_estoque(Produto produtos[], int quantidade) {
+    char codigo[MAX];
+
+    if (quantidade == 0) {
+        printf("Nenhum produto cadastrado.\n");
+        return -1;
+    }
+
+    printf("Digite o codigo do produto: ");
+    if (!ler_linha_estoque(codigo)) {
+        return -1;
+    }
+
+    for (int i = 0; i < quantidade; i++) {
+        if (strcmp(produtos[i].codigo, codigo) == 0) {
+            if (produtos[i].qtd_estoque < 0) {
+                printf("Estoque atual invalido. Operacao cancelada.\n");
+                return -1;
+            }
+            exibirInfoProduto(produtos, i);
+            return i;
+        }
+    }
+
+    printf("Produto com codigo '%s' nao encontrado.\n", codigo);
+    return -1;
+}
+
+void registrar_entrada(Produto produtos[], int quantidade) {
+    int i = selecionar_produto_estoque(produtos, quantidade);
+    int entrada;
+
+    if (i == -1 || !ler_inteiro_estoque("Digite a quantidade de entrada: ", &entrada)) {
+        return;
+    }
+    if (entrada <= 0) {
+        printf("A quantidade deve ser maior que zero. Operacao cancelada.\n");
+        return;
+    }
+    if (entrada > INT_MAX - produtos[i].qtd_estoque) {
+        printf("Entrada excede o limite de estoque. Operacao cancelada.\n");
+        return;
+    }
+
+    produtos[i].qtd_estoque += entrada;
+    printf("Entrada registrada com sucesso! Estoque atual: %d unidades.\n",
+           produtos[i].qtd_estoque);
+}
+
+void registrar_venda(Produto produtos[], int quantidade) {
+    int i = selecionar_produto_estoque(produtos, quantidade);
+    int venda;
+
+    if (i == -1 || !ler_inteiro_estoque("Digite a quantidade de venda: ", &venda)) {
+        return;
+    }
+    if (venda <= 0) {
+        printf("A quantidade deve ser maior que zero. Operacao cancelada.\n");
+        return;
+    }
+    if (venda > produtos[i].qtd_estoque) {
+        printf("Estoque insuficiente. Disponivel: %d unidades.\n",
+               produtos[i].qtd_estoque);
+        return;
+    }
+
+    produtos[i].qtd_estoque -= venda;
+    printf("Venda registrada com sucesso! Estoque atual: %d unidades.\n",
+           produtos[i].qtd_estoque);
+}
+
+void alterar_estoque(Produto produtos[], int quantidade) {
+    int opcao;
+
+    if (quantidade == 0) {
+        printf("Nenhum produto cadastrado.\n");
+        return;
+    }
+
+    printf("\n===== ALTERAR ESTOQUE =====\n");
+    printf("1 - Registrar entrada\n");
+    printf("2 - Registrar venda\n");
+    printf("0 - Voltar ao menu principal\n");
+    if (!ler_inteiro_estoque("Digite uma opcao: ", &opcao)) {
+        return;
+    }
+
+    switch (opcao) {
+        case 1:
+            registrar_entrada(produtos, quantidade);
+            break;
+        case 2:
+            registrar_venda(produtos, quantidade);
+            break;
+        case 0:
+            break;
+        default:
+            printf("Opcao invalida!\n");
+            break;
+    }
+}
+//Raphael  fim
+
 
 int menu_produtos(){
     int escolha;
@@ -427,6 +587,7 @@ int opcao;
                 break;
 
             case 5:
+                alterar_estoque(produtos, quantidade);
                 break;
             case 0:
                 printf("Encerrando sistema...\n");
@@ -436,6 +597,5 @@ int opcao;
                 break;
         }
     } while (opcao!=0);
-    
     return 0;
 }

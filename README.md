@@ -23,7 +23,7 @@ Raphael
   * Registrar Venda
 
   
-Pessoa 5
+Esthefany
 * Editar Produtos
 * Menu de edição
 

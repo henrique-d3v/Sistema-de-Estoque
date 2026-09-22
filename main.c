@@ -185,9 +185,9 @@ void buscar_tamanho(Produto produtos[], int quantidade) {
 int menuBusca() {
     int opc_busca;
     printf("\n===== BUSCAR PRODUTOS =====\n");
-    printf("1 - Buscar por codigo\n");
-    printf("2 - Buscar por nome\n");
-    printf("3 - Buscar por tamanho\n"); 
+    printf("1 - Buscar por codigo\n ");
+    printf("2 - Buscar por nome\n ");
+    printf("3 - Buscar por tamanho\n "); 
     printf("Digite uma opcao: ");
     scanf("%d", &opc_busca);
 
@@ -231,7 +231,7 @@ void exibir_estoque(Produto produtos[],int quantidade){
         return;
     } // se não houver nenhum produto cadastrado ele printa a mensagem e retorna
 
-    printf("=====EXIBIR ESTOQUE=====\n");
+    printf("\n=====EXIBIR ESTOQUE=====\n");
 
     int choice; // o usuario escolhe se quer exibir o estoque total ou por categoria
     printf("1 - Exibir estoque total\n "); // menu de escolha

@@ -57,7 +57,7 @@ Henrique
 
 [x] Busca por tamanho
 
-[ ] Exibir todo o estoque
+[x] Exibir todo o estoque
 
 Raphael
 
@@ -75,6 +75,6 @@ Esthefany
 
 Kauê
 
-[ ] Exibir por categoria
+[x] Exibir por categoria
 
-[ ] Exibir Baixa Quantidade
+[x] Exibir Baixa Quantidade

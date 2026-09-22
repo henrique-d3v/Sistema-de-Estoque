@@ -61,11 +61,11 @@ Henrique
 
 Raphael
 
-[ ] Alterar Estoque
+[X] Alterar Estoque
 
-[ ] Registrar Entrada
+[X] Registrar Entrada
 
-[ ] Registrar Venda
+[X] Registrar Venda
 
 Esthefany
 

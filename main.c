@@ -184,7 +184,7 @@ void buscar_tamanho(Produto produtos[], int quantidade) {
 // menu de busca
 int menuBusca() {
     int opc_busca;
-    printf("\n===== Buscar produtos =====\n");
+    printf("\n===== BUSCAR PRODUTOS =====\n");
     printf("1 - Buscar por codigo\n");
     printf("2 - Buscar por nome\n");
     printf("3 - Buscar por tamanho\n"); 

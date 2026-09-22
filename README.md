@@ -28,13 +28,24 @@ main() [Laço Principal]
  │         ├── [Opção 2] Exibir por Categoria
  │         └── [Opção 3] Baixa Quantidade
  │
- ├── [Opção 4] Editar Produtos (Em desenvolvimento)
+ ├── [Opção 4] Editar Produtos
+ │    └── Chama: editar_produto()
+ │         ├── [Opção 1] Editar Nome
+ │         ├── [Opção 2] Editar Categoria
+ │         ├── [Opção 3] Editar Preço
+ │         ├── [Opção 4] Editar Quantidade em Estoque
+ │         ├── [Opção 5] Editar Tamanho
+ │         └── [Opção 0] Sair do menu de edição
  │
- ├── [Opção 5] Alterar Estoque (Em desenvolvimento)
+ ├── [Opção 5] Alterar Estoque
+ │    └── Chama: alterar_estoque()
+ │         ├── [Opção 1] Registrar Entrada
+ │         │    └── Chama: registrar_entrada() -> selecionar_produto_estoque()
+ │         ├── [Opção 2] Registrar Venda
+ │         │    └── Chama: registrar_venda()   -> selecionar_produto_estoque()
+ │         └── [Opção 0] Voltar ao menu principal
  │
  └── [Opção 0] Sair (Encerra o laço do main)
-
-
 
 Equipe e Divisão de Tarefas
 Kaio

@@ -1,35 +1,80 @@
+# Sistema de Gestão de Estoque
 
- # Sistema-de-Estoque
+Um sistema em C para gestão e controle de estoque, desenvolvido em equipe. Permite o registro, busca, edição e controle de quantidades de produtos armazenados.
+
+##  Estrutura de Execução do Sistema
+
+```text
+main() [Laço Principal]
+ │
+ ├── Chama: menu_produtos() (Exibe o menu e retorna a opção escolhida)
+ │
+ ├── [Opção 1] Cadastrar Produto
+ │    └── Chama: cadastrar_produto()
+ │         ├── Chama: reallocar_produtos()
+ │         ├── Chama: cadastro_nome() -> verificar_nome()
+ │         └── Chama: cadastro_codigo() -> verificar_codigo()
+ │
+ ├── [Opção 2] Buscar Produtos
+ │    ├── Chama: menuBusca()
+ │    └── Chama: buscar_Produto()
+ │         ├── [Caso 1] buscar_codigo()  -> executarBusca()
+ │         ├── [Caso 2] buscar_nome()    -> executarBusca()
+ │         └── [Caso 3] buscar_tamanho() -> executarBusca()
+ │
+ ├── [Opção 3] Exibir Estoque
+ │    └── Chama: exibir_estoque()
+ │         ├── [Opção 1] Exibir Estoque Total
+ │         ├── [Opção 2] Exibir por Categoria
+ │         └── [Opção 3] Baixa Quantidade
+ │
+ ├── [Opção 4] Editar Produtos (Em desenvolvimento)
+ │
+ ├── [Opção 5] Alterar Estoque (Em desenvolvimento)
+ │
+ └── [Opção 0] Sair (Encerra o laço do main)
+
+
+
+Equipe e Divisão de Tarefas
 Kaio
-* Cadastrar Produtos
-  * Verificar código
-  * Verificar nome
 
+[x] Cadastrar Produtos
+
+[x] Verificar código
+
+[x] Verificar nome
 
 Pedro
-* Buscar Produtos
-  * Busca por codigo
-  * Busca por nome
-  
+
+[x] Buscar Produtos
+
+[x] Busca por código
+
+[x] Busca por nome
+
 Henrique
-* Buscar Produtos
-  * Busca por tamanho
-* Exibir Estoque
-  * Todo estoque
 
-  
+[x] Busca por tamanho
+
+[ ] Exibir todo o estoque
+
 Raphael
-* Alterar Estoque
-  * Registrar Entrada
-  * Registrar Venda
 
-  
+[ ] Alterar Estoque
+
+[ ] Registrar Entrada
+
+[ ] Registrar Venda
+
 Esthefany
-* Editar Produtos
-* Menu de edição
 
-  
+[ ] Editar Produtos
+
+[ ] Menu de edição
+
 Kauê
-* Exibir Estoque
-  * Por categoria
-  * Baixa Quantidade
+
+[ ] Exibir por categoria
+
+[ ] Exibir Baixa Quantidade

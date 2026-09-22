@@ -69,9 +69,9 @@ Raphael
 
 Esthefany
 
-[ ] Editar Produtos
+[x] Editar Produtos
 
-[ ] Menu de edição
+[x] Menu de edição
 
 Kauê
 

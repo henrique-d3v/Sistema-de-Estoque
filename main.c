@@ -321,6 +321,84 @@ int menu_produtos(){
     return escolha;
 } // funcao que exibe o menu do sistema de estoque e retorna o inteiro digitado (escolha) pelo usuario
 
+void editar_produto(Produto produtos[], int quantidade){
+    if(quantidade == 0){
+        printf("Nenhum produto cadastrado!\n");
+        return;
+    }
+
+    char codigo[MAX];
+    int encontrado = -1;
+
+    printf("Digite o codigo do produto que deseja editar: ");
+    scanf(" %99[^\n]", codigo);
+
+    // Procura o produto pelo código
+    for(int i = 0; i < quantidade; i++){
+        if(strcmp(produtos[i].codigo, codigo) == 0){
+            encontrado = i;
+            break;
+        }
+    }
+
+    if(encontrado == -1){
+        printf("Produto nao encontrado!\n");
+        return;
+    }
+
+    int opcao;
+
+    do{
+        printf("\n===== EDITAR PRODUTO =====\n");
+        printf("1 - Nome\n");
+        printf("2 - Categoria\n");
+        printf("3 - Preco\n");
+        printf("4 - Quantidade em estoque\n");
+        printf("5 - Tamanho\n");
+        printf("0 - Sair\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+        limpar_buffer();
+
+        switch(opcao){
+
+            case 1:
+                printf("Novo nome: ");
+                scanf(" %99[^\n]", produtos[encontrado].nome);
+                break;
+
+            case 2:
+                printf("Nova categoria: ");
+                scanf(" %99[^\n]", produtos[encontrado].categoria);
+                break;
+
+            case 3:
+                printf("Novo preco: ");
+                scanf("%f", &produtos[encontrado].preco);
+                break;
+
+            case 4:
+                printf("Nova quantidade: ");
+                scanf("%d", &produtos[encontrado].qtd_estoque);
+                break;
+
+            case 5:
+                printf("Novo tamanho: ");
+                scanf(" %99[^\n]", produtos[encontrado].tamanho);
+                break;
+
+            case 0:
+                printf("Edicao encerrada.\n");
+                break;
+
+            default:
+                printf("Opcao invalida!\n");
+        }
+
+    }while(opcao != 0);
+}
+
+
 
 ////                    seção produtos                           ////
 
@@ -345,7 +423,9 @@ int opcao;
                 exibir_estoque(produtos, quantidade);
                 break;
             case 4:
+                editar_produto(produtos, quantidade);
                 break;
+
             case 5:
                 break;
             case 0:

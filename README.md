@@ -1,6 +1,6 @@
 # Sistema de Gestão de Estoque
 
-Um sistema em C para gestão e controle de estoque, desenvolvido em equipe. Permite o registro, busca, edição e controle de quantidades de produtos armazenados.
+Um sistema em C para gestão e controle de estoque, desenvolvido em equipe. Permite o registro, busca, edição e controle de quantidades de produtos armazenados. Para facilitar a usabilidade e representar uma situação real de aplicação, o sistema foi adaptado ao contexto de uma loja de roupas, permitindo o gerenciamento de produtos, categorias, tamanhos e quantidades em estoque.
 
 ##  Estrutura de Execução do Sistema
 
